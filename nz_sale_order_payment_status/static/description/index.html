@@ -400,15 +400,23 @@
     </section>
 
     <section class="tabs-wrapper mb-5">
-        <ul class="nav nav-tabs justify-content-center bg-white py-3" id="descTabs" role="tablist">
-            <li class="nav-item"><button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button">Screenshots</button></li>
-            <li class="nav-item"><button class="nav-link" id="feature-tab" data-bs-toggle="tab" data-bs-target="#feature" type="button">Features</button></li>
-            <li class="nav-item"><button class="nav-link" id="faq-tab" data-bs-toggle="tab" data-bs-target="#faq" type="button">FAQ</button></li>
-            <li class="nav-item"><button class="nav-link" id="release-tab" data-bs-toggle="tab" data-bs-target="#release" type="button">Releases</button></li>
+        <ul class="nav nav-tabs justify-content-center bg-white py-3" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Screenshots</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="feature-tab" data-bs-toggle="tab" href="#feature" role="tab" aria-controls="feature" aria-selected="false">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="faq-tab" data-bs-toggle="tab" href="#faq" role="tab" aria-controls="faq" aria-selected="false">FAQ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="release-tab" data-bs-toggle="tab" href="#release" role="tab" aria-controls="release" aria-selected="false">Releases</a>
+            </li>
         </ul>
 
-        <div class="tab-content p-md-4 p-3">
-            <div class="tab-pane fade show active" id="overview" role="tabpanel">
+        <div class="tab-content p-md-4 p-3" id="myTabContent">
+            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                 <div class="screen-box">
                     <h4 class="text-center mb-3" style="font-weight:700;">1) Payment status appears in sale order list view</h4>
                     <p class="text-center text-muted mb-3">After installation, payment status appears as a badge with paid amount, remaining amount, and progress visibility.</p>
@@ -436,7 +444,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="feature" role="tabpanel">
+            <div class="tab-pane fade" id="feature" role="tabpanel" aria-labelledby="feature-tab">
                 <div class="row g-3">
                     <div class="col-md-6"><div class="faq-item h-100"><b>Automatic status updates:</b> Recomputed when invoices or order totals change.</div></div>
                     <div class="col-md-6"><div class="faq-item h-100"><b>High compatibility:</b> Works smoothly with both Sales and Accounting flows.</div></div>
@@ -447,7 +455,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="faq" role="tabpanel">
+            <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
                 <div class="faq-item">
                     <h6 style="font-weight:700;">Does the module support Community and Enterprise?</h6>
                     <p class="text-muted mb-0">Yes, the module is designed for both Odoo Community and Enterprise editions.</p>
@@ -466,7 +474,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="release" role="tabpanel">
+            <div class="tab-pane fade" id="release" role="tabpanel" aria-labelledby="release-tab">
                 <div class="faq-item mb-3">
                     <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
                         <h6 class="mb-1" style="font-weight:700; color: var(--primary);">Version 1.0.0</h6>
