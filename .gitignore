@@ -1,0 +1,11 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Odoo stuff 
+*.log
+*.sqlite3
+.env
+venv/
