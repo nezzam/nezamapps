@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_cleaner,account.cleaner.access,model_account_cleaner,account.group_account_manager,1,1,1,1
+access_x_account_delete_wizard,x_account.delete.wizard.access,model_x_account_delete_confirmation_wizard,account.group_account_manager,1,1,1,1
+access_x_account_final_warning,x_account.final.warning.access,model_x_account_final_warning_wizard,account.group_account_manager,1,1,1,1
+access_x_account_cleaner_log,x_account.cleaner.log.access,model_x_account_cleaner_log,account.group_account_manager,1,1,1,1
+access_x_account_cleaner_log_line,x_account.cleaner.log.line.access,model_x_account_cleaner_log_line,account.group_account_manager,1,1,1,1
