@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_account_journal_form_inherit_commission" model="ir.ui.view">
+        <field name="name">account.journal.form.inherit.commission</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='bank_account_number']" position="after">
+                <group string="Commission">
+                    <field name="commission_percentage"/>
+                    <field name="commission_account_id"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
