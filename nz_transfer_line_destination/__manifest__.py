@@ -12,3 +12,4 @@
     'application': False,
     'license': 'LGPL-3',
 }
+
