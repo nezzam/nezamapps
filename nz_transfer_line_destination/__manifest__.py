@@ -1,6 +1,6 @@
 {
     'name': 'Stock Transfer Line Destination',
-    'version': '15.0.1.0',
+    'version': '15.0.1.0.0',
     'summary': 'Set destination location per operation line in transfers',
     'category': 'Inventory/Inventory',
     'depends': ['stock','account'],
@@ -9,6 +9,6 @@
         'views/refund_menu.xml',
     ],
     'installable': True,
-    'application': False,
+    'Application': False,
     'license': 'LGPL-3',
 }
