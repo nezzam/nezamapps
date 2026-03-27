@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="nz_pos_config_view_form_inherit" model="ir.ui.view">
+        <field name="name">pos.config.view.form.inherit.nz.receipt.designer</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//setting[@id='other_devices']" position="after">
+                <setting
+                    title="NZ POS Receipt Designer"
+                    string="Custom Receipt Template"
+                    help="Apply a custom receipt template to this POS">
+
+                    <field name="nz_use_custom_receipt"/>
+
+                    <div class="content-group mt16">
+
+                        <field name="nz_receipt_template_id"
+                               options="{'no_open': True}">
+                            <condition invisible="not nz_use_custom_receipt"/>
+                        </field>
+
+                        <button string="Open Layout Editor"
+                                type="object"
+                                name="btn_launch_receipt_editor"
+                                class="btn btn-primary mt-2">
+                            <i class="fa fa-pencil-square-o me-1"/>
+                            <condition invisible="not nz_receipt_template_id"/>
+                        </button>
+
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

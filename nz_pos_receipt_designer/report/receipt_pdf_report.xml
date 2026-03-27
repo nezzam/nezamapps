@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- PDF Report Action -->
+    <record id="nz_action_receipt_pdf" model="ir.actions.report">
+        <field name="name">NZ POS Receipt PDF</field>
+        <field name="model">pos.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">nz_pos_receipt_designer.nz_receipt_pdf_template</field>
+        <field name="report_file">nz_pos_receipt_designer.nz_receipt_pdf_template</field>
+    </record>
+
+    <!-- PDF QWeb Template -->
+    <template id="nz_receipt_pdf_template">
+        <t t-name="nz_pos_receipt_designer.nz_receipt_pdf_template">
+            <t t-call="web.html_container">
+
+                <style>
+                    .nz-page { margin: 0 !important; padding: 0 !important; }
+                    .nz-receipt { width: 80mm; margin: auto; font-family: monospace; font-size: 11px; }
+                    table { width: 100%; border-collapse: collapse; }
+                    th, td { padding: 4px 6px; font-size: 10.5px; line-height: 1.4; }
+                    th { border-bottom: 1px dashed #000; font-weight: bold; }
+                    td.nz-product { white-space: normal; word-break: break-word; }
+                    .nz-left { text-align: left; }
+                    .nz-center { text-align: center; }
+                    .nz-right { text-align: right; }
+                    .nz-sep { border-bottom: 1px dashed #000; margin: 6px 0; }
+                    .nz-flex-between { display: flex; justify-content: space-between; }
+                    .nz-bold { font-weight: bold; }
+                </style>
+
+                <div class="nz-receipt">
+
+                    <t t-if="company and company.logo">
+                        <div class="nz-center" style="margin-bottom:6px;">
+                            <img t-att-src="'data:image/png;base64,' + company.logo.decode('utf-8')"
+                                 style="max-height:70px; max-width:100%;"/>
+                        </div>
+                    </t>
+
+                    <!-- Header -->
+                    <div class="nz-center nz-bold" style="font-size:16px;">
+                        <t t-esc="payload['company_name']"/>
+                    </div>
+                    <div class="nz-center">
+                        <t t-esc="payload['company_phone']"/>
+                    </div>
+
+                    <div class="nz-sep"/>
+
+                    <!-- Order Info -->
+                    <div>Receipt: <t t-esc="payload['receipt_ref']"/></div>
+                    <div>Date: <t t-esc="payload['receipt_date']"/></div>
+
+                    <div class="nz-sep"/>
+
+                    <!-- Line Items -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="nz-left" style="width:36%;">Product</th>
+                                <th class="nz-center" style="width:10%;">Qty</th>
+                                <th class="nz-right" style="width:18%;">Amount</th>
+                                <t t-foreach="payload['extra_columns']" t-as="col">
+                                    <th class="nz-right" style="min-width:45px;">
+                                        <t t-esc="col.replace('_',' ').title()"/>
+                                    </th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="payload['line_rows']" t-as="row"
+                                style="border-bottom:1px dotted #ccc;">
+                                <td class="nz-product nz-left"><t t-esc="row['product']"/></td>
+                                <td class="nz-center"><t t-esc="row['qty']"/></td>
+                                <td class="nz-right"><t t-esc="row['subtotal']"/></td>
+                                <t t-foreach="payload['extra_columns']" t-as="col">
+                                    <td class="nz-right"><t t-esc="row.get(col, '')"/></td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="nz-sep"/>
+
+                    <!-- Totals -->
+                    <div class="nz-flex-between">
+                        <span>Tax</span>
+                        <span><t t-esc="payload['tax_amount']"/></span>
+                    </div>
+                    <div class="nz-flex-between nz-bold">
+                        <span>Total</span>
+                        <span><t t-esc="payload['grand_total']"/></span>
+                    </div>
+
+                    <div class="nz-sep"/>
+
+                    <!-- QR Code -->
+                    <t t-if="payload.get('qr_b64')">
+                        <div class="nz-center" style="margin-top:8px;">
+                            <img t-att-src="'data:image/png;base64,' + payload['qr_b64']"
+                                 style="width:120px;"/>
+                            <div style="font-size:11px; margin-top:4px;">
+                                Scan to view full receipt
+                            </div>
+                        </div>
+                    </t>
+
+                    <!-- Footer -->
+                    <div class="nz-center" style="margin-top:10px;">
+                        Thank you for your purchase!
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

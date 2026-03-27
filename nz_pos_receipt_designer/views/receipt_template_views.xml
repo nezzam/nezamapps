@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Client action for the receipt editor -->
+    <record id="nz_action_receipt_editor_client" model="ir.actions.client">
+        <field name="name">NZ Receipt Layout Editor</field>
+        <field name="tag">nz_receipt_editor_action</field>
+    </record>
+
+    <!-- Form view -->
+    <record id="nz_receipt_template_view_form" model="ir.ui.view">
+        <field name="name">nz.receipt.template.view.form</field>
+        <field name="model">nz.receipt.template</field>
+        <field name="arch" type="xml">
+            <form string="Receipt Templates">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="font_family" string="Font"/>
+                        <field name="header_logo" string="Logo"/>
+                        <field name="layout_xml" widget="code" options="{'mode': 'xml'}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List view -->
+    <record id="nz_receipt_template_view_list" model="ir.ui.view">
+        <field name="name">nz.receipt.template.view.list</field>
+        <field name="model">nz.receipt.template</field>
+        <field name="arch" type="xml">
+            <list string="Receipt Templates">
+                <field name="name"/>
+                <button name="btn_open_layout_editor"
+                        string="Open Layout Editor"
+                        type="object"
+                        class="oe_link"
+                        icon="oi-arrow-right"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action window -->
+    <record id="nz_receipt_template_action" model="ir.actions.act_window">
+        <field name="name">Receipt Templates</field>
+        <field name="res_model">nz.receipt.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">current</field>
+    </record>
+
+    <!-- Menu item -->
+    <menuitem name="NZ Receipt Templates"
+              id="nz_receipt_template_menu"
+              parent="point_of_sale.menu_point_config_product"
+              action="nz_receipt_template_action"
+              sequence="55"/>
+</odoo>

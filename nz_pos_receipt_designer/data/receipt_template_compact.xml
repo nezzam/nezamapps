@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="nz_receipt_tpl_compact" model="nz.receipt.template">
+            <field name="name">Compact Row Layout</field>
+            <field name="layout_xml"><![CDATA[
+            <div class="pos-receipt nz-custom-receipt nz-compact-row-layout"
+                 t-att-style="'padding:15px; line-height:1.3; max-width:320px; margin:0 auto; font-size:12px; font-family:' + (props.order.config.nz_font_family or 'Arial')">
+
+                <!-- HEADER -->
+                <div class="nz-header-section" style="text-align:center; padding-bottom:12px; border-bottom:2px solid #000;">
+                    <t t-if="props.order.config.nz_header_logo">
+                        <img t-att-src="'data:image/png;base64,' + props.order.config.nz_header_logo"
+                             style="max-width:100px; margin-bottom:6px; opacity:0.95;"/>
+                    </t>
+                    <div class="nz-field-placeholder" style="font-size:16px; font-weight:700; letter-spacing:0.5px; margin-top:4px;">
+                        [[ company.name ]]
+                    </div>
+                    <div class="nz-field-placeholder" style="font-size:10px; line-height:1.4; opacity:0.85;">
+                        [[ company.phone ]]
+                    </div>
+                    <div class="nz-field-placeholder" style="font-size:10px; line-height:1.4; opacity:0.85;">
+                        [[ company.email ]]
+                    </div>
+                    <div class="nz-field-placeholder" style="font-size:10px; line-height:1.4; opacity:0.85;">
+                        [[ company.website ]]
+                    </div>
+                </div>
+
+                <!-- ORDER LINES - ROW LAYOUT -->
+                <div class="nz-orderlines-section" style="margin-top:12px;">
+                    <div style="font-weight:600; font-size:11px; letter-spacing:0.3px; margin-bottom:8px; text-transform:uppercase; opacity:0.75;">
+                        Order Details
+                    </div>
+
+                    <div class="nz-lines-container nz-no-drop" style="margin-top:8px;">
+                        <t t-if="props.orderlines and props.orderlines.length">
+                            <div t-foreach="props.orderlines"
+                                 t-as="orderline"
+                                 t-key="orderline_index"
+                                 class="nz-line-row nz-no-drop"
+                                 style="padding:6px 8px; margin-bottom:10px;">
+
+                                <!-- PRODUCT NAME -->
+                                <div style="display:grid; grid-template-columns:120px 1fr; font-size:11px; margin-top:4px;">
+                                    <span>Product Name:</span>
+                                    <span style="font-weight:600; text-align:right;">
+                                        <t t-esc="orderline.productName"/>
+                                    </span>
+                                </div>
+
+                                <!-- DYNAMIC FIELDS -->
+                                <t t-if="orderline._dynamicValues">
+                                    <div t-foreach="Object.entries(orderline._dynamicValues)"
+                                         t-as="entry"
+                                         t-key="entry[0]"
+                                         style="display:grid; grid-template-columns:120px 1fr; font-size:12px; margin-top:2px; color:#000;">
+                                        <span style="text-transform:capitalize;">
+                                            <t t-esc="entry[0].replace('_', ' ')"/>
+                                        </span>
+                                        <span style="font-weight:600; text-align:right;">
+                                            <t t-esc="entry[1] || ''"/>
+                                        </span>
+                                    </div>
+                                </t>
+
+                                <!-- QTY -->
+                                <div style="display:grid; grid-template-columns:120px 1fr; font-size:11px; margin-top:2px;" class="nz-no-drop">
+                                    <span>Qty:</span>
+                                    <span style="text-align:right;"><t t-esc="orderline.qty"/></span>
+                                </div>
+
+                                <!-- PRICE -->
+                                <div style="display:grid; grid-template-columns:120px 1fr; font-size:13px; margin-top:2px;" class="nz-no-drop">
+                                    <span></span>
+                                    <span style="text-align:right; font-weight:700; color:#000;">
+                                        <t t-esc="orderline.price"/>
+                                    </span>
+                                </div>
+
+                                <!-- DROP ZONE -->
+                                <div class="nz-compact-dropzone nz-column-dropzone nz-no-drop"
+                                     data-zone="order"
+                                     style="margin-top:4px; padding:3px; min-height:18px; text-align:center; font-size:12px; color:#888;">
+                                    <span class="nz-editor-only-label"></span>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+
+                <!-- TOTALS -->
+                <div class="nz-totals-section" style="margin-top:15px; padding:10px; border:2px solid #000;">
+                    <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:6px; opacity:0.85;">
+                        <span style="font-weight:500;">Subtotal</span>
+                        <span class="nz-field-placeholder">[[ receipt.total_without_tax ]]</span>
+                    </div>
+                    <div style="border-top:1px solid #000; margin:8px 0;"></div>
+                    <div style="display:flex; justify-content:space-between; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+                        <span>TOTAL</span>
+                        <span class="nz-field-placeholder">[[ receipt.amount_total ]]</span>
+                    </div>
+                </div>
+
+                <!-- Receipt QR Wrapper -->
+                <div class="nz-receipt-qr-wrapper">
+                    <div class="nz-receipt-qr-source" style="display:none;">
+                        <t t-if="props.data.nz_qr_image">
+                            <img t-att-src="'data:image/png;base64,' + props.data.nz_qr_image"
+                                 style="width:100px; height:100px; margin:8px auto; display:block;"/>
+                        </t>
+                    </div>
+                </div>
+
+                <!-- URL QR -->
+                <div class="nz-url-qr-area" style="display:flex; justify-content:center; margin:15px 0;"></div>
+
+                <!-- Footer -->
+                <div class="nz-footer-section" style="text-align:center; font-size:11px; border-top:2px solid #000; padding-top:10px; letter-spacing:0.3px; line-height:1.5;">
+                    <div style="font-weight:600; margin-bottom:3px;">Thank You</div>
+                    <div style="opacity:0.7;">We appreciate your business</div>
+                </div>
+            </div>
+        ]]></field>
+        </record>
+    </data>
+</odoo>

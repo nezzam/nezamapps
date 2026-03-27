@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="nz_pos_receipt_designer.NzEditorTemplate">
+
+        <div class="nz-receipt-editor-root">
+
+            <!-- ============ TOP BAR ============ -->
+            <div class="nz-editor-topbar">
+                <div class="nz-topbar-brand">
+                    <div class="nz-brand-icon">NZ</div>
+                    <span>Receipt Designer</span>
+                </div>
+                <div class="nz-topbar-actions">
+                    <button class="btn nz-btn-reset" t-on-click="onResetClicked">
+                        <i class="fa fa-undo me-1"/> Reset
+                    </button>
+                    <button class="btn nz-btn-save" t-on-click="onSaveClicked">
+                        <i class="fa fa-check me-1"/> Save
+                    </button>
+                </div>
+            </div>
+
+            <!-- ============ MAIN LAYOUT ============ -->
+            <div class="nz-editor-container">
+
+                <!-- ====== LEFT SIDEBAR (TOOLS) ====== -->
+                <div class="nz-tools-panel d-flex flex-column">
+
+                    <!-- Section: Font -->
+                    <div class="nz-sidebar-section">
+                        <div class="nz-section-header">
+                            <div class="nz-section-icon nz-icon-font">
+                                <i class="fa fa-font"/>
+                            </div>
+                            Typography
+                        </div>
+                        <div class="nz-section-body">
+                            <label class="form-label">Font Family</label>
+                            <select t-model="state.fontFamily" t-on-change="onFontPickerChange" class="form-select">
+                                <option value="Arial">Arial</option>
+                                <option value="Courier New">Courier New</option>
+                                <option value="Inter">Inter</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="system-ui">System UI</option>
+                                <option value="monospace">Monospace</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section: Logo -->
+                    <div class="nz-sidebar-section">
+                        <div class="nz-section-header">
+                            <div class="nz-section-icon nz-icon-logo">
+                                <i class="fa fa-image"/>
+                            </div>
+                            Brand Logo
+                        </div>
+                        <div class="nz-section-body">
+                            <button class="btn btn-outline-primary" t-on-click="triggerLogoUpload">
+                                <i class="fa fa-upload me-2"/>Upload Logo
+                            </button>
+                            <input type="file" id="nzLogoUpload" accept="image/*" style="display:none"
+                                   t-on-change="onLogoFileSelected"/>
+                        </div>
+                    </div>
+
+                    <!-- Section: Receipt QR -->
+                    <div class="nz-sidebar-section">
+                        <div class="nz-section-header">
+                            <div class="nz-section-icon nz-icon-qr">
+                                <i class="fa fa-qrcode"/>
+                            </div>
+                            Receipt QR Code
+                        </div>
+                        <div class="nz-section-body">
+                            <div class="form-check mb-3">
+                                <input type="checkbox" class="form-check-input"
+                                       t-model="state.enableReceiptQr"
+                                       t-on-change="toggleReceiptQr"
+                                       id="nzEnableReceiptQr"/>
+                                <label class="form-check-label" for="nzEnableReceiptQr">
+                                    Enable Receipt Content QR
+                                </label>
+                            </div>
+                            <t t-if="state.enableReceiptQr">
+                                <div class="mb-3">
+                                    <label class="form-label">Size: <span t-esc="state.receiptQrSize"/>px</label>
+                                    <input type="range" class="form-range"
+                                           min="80" max="300" step="10"
+                                           t-model="state.receiptQrSize"
+                                           t-on-input="onReceiptQrSizeInput"/>
+                                </div>
+                                <div>
+                                    <label class="form-label">Alignment</label>
+                                    <select class="form-select"
+                                            t-model="state.receiptQrAlign"
+                                            t-on-change="onReceiptQrAlignChange">
+                                        <option value="left">Left</option>
+                                        <option value="center">Center</option>
+                                        <option value="right">Right</option>
+                                    </select>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- Section: URL QR -->
+                    <div class="nz-sidebar-section">
+                        <div class="nz-section-header">
+                            <div class="nz-section-icon nz-icon-url">
+                                <i class="fa fa-link"/>
+                            </div>
+                            URL QR Code
+                        </div>
+                        <div class="nz-section-body">
+                            <div class="form-check mb-3">
+                                <input type="checkbox"
+                                       t-on-change="toggleUrlQrPanel"
+                                       t-model="state.showUrlQrPanel"
+                                       class="form-check-input"
+                                       id="nzEnableUrlQr"/>
+                                <label class="form-check-label" for="nzEnableUrlQr">
+                                    Enable URL QR Code
+                                </label>
+                            </div>
+                            <t t-if="state.showUrlQrPanel">
+                                <input type="text" placeholder="https://example.com"
+                                       t-ref="nzUrlInput" class="form-control mb-3"/>
+                                <div class="mb-3">
+                                    <label class="form-label">Size: <span t-esc="state.urlQrSize"/>px</label>
+                                    <input type="range" class="form-range"
+                                           min="80" max="300" step="10"
+                                           t-model="state.urlQrSize"
+                                           t-on-input="onUrlQrSizeInput"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Alignment</label>
+                                    <select class="form-select" t-model="state.urlQrAlign"
+                                            t-on-change="onUrlQrAlignChange">
+                                        <option value="left">Left</option>
+                                        <option value="center">Center</option>
+                                        <option value="right">Right</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary w-100" t-on-click="onSubmitUrlQr">
+                                    <i class="fa fa-qrcode me-2"/>Generate QR
+                                </button>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- Section: Drag Fields -->
+                    <div class="nz-sidebar-section">
+                        <div class="nz-section-header">
+                            <div class="nz-section-icon nz-icon-fields">
+                                <i class="fa fa-arrows"/>
+                            </div>
+                            Drag Fields
+                        </div>
+                        <div class="nz-section-body">
+                            <label class="form-label">Data Source</label>
+                            <select t-on-change="onModelPickerChange" class="form-select mb-2">
+                                <option value="">Select Model...</option>
+                                <option value="pos.order">POS Order</option>
+                                <option value="res.partner">Customer</option>
+                            </select>
+                            <t t-if="state.selectedModel">
+                                <div class="nz-field-list mt-2">
+                                    <ul>
+                                        <li t-foreach="state.availableFields" t-as="field"
+                                            t-key="field.technical"
+                                            draggable="true"
+                                            t-on-dragstart="onFieldDragStart"
+                                            t-on-dragend="onFieldDragEnd"
+                                            t-att-data-field="field.technical">
+                                            <i class="fa fa-grip-vertical me-2" style="opacity:0.4; font-size:10px;"/>
+                                            <t t-esc="field.label"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- Section: Dynamic Columns -->
+                    <div class="nz-sidebar-section">
+                        <div class="nz-section-header">
+                            <div class="nz-section-icon nz-icon-columns">
+                                <i class="fa fa-columns"/>
+                            </div>
+                            Product Columns
+                        </div>
+                        <div class="nz-section-body">
+                            <label class="form-label">Product Field</label>
+                            <select class="form-select mb-3"
+                                    t-model="state.contextMenu.pickedField">
+                                <option value="">Select field...</option>
+                                <t t-foreach="state.productFieldList" t-as="f" t-key="f.name">
+                                    <option t-att-value="f.name">
+                                        <t t-esc="f.label"/> (<t t-esc="f.name"/>)
+                                    </option>
+                                </t>
+                            </select>
+
+                            <div class="d-flex flex-wrap gap-2">
+                                <t t-foreach="state.productFieldList.filter(
+                                    f => f.name === state.contextMenu.pickedField
+                                )" t-as="f" t-key="'chip-'+f.name">
+                                    <div class="nz-chip nz-text-chip"
+                                         draggable="true"
+                                         t-att-data-field="f.name"
+                                         t-on-dragstart="onFieldDragStart">
+                                        <i class="fa fa-font me-1" style="font-size:10px;"/>
+                                        <t t-esc="f.label"/>
+                                    </div>
+                                    <div class="nz-chip nz-col-chip"
+                                         draggable="true"
+                                         t-att-data-field="f.name"
+                                         t-on-dragstart="onColumnChipDragStart">
+                                        <i class="fa fa-columns me-1" style="font-size:10px;"/>
+                                        <t t-esc="f.label"/>
+                                    </div>
+                                </t>
+                                <t t-if="!state.contextMenu.pickedField">
+                                    <div style="color: var(--nz-sidebar-muted); font-size: 12px;">
+                                        Pick a product field above, then drag the chip onto the receipt
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ====== RIGHT PANEL (RECEIPT CANVAS) ====== -->
+                <div class="nz-canvas-wrapper">
+                    <div class="nz-canvas-label">Receipt Preview</div>
+                    <div class="nz-canvas"
+                         t-ref="NzEditorCanvas"
+                         t-on-click="onEditorClick"
+                         t-att-style="'font-family:' + state.fontFamily"
+                         contenteditable="true"
+                         t-on-drop="onCanvasDrop"/>
+                </div>
+
+            </div>
+
+            <!-- Hidden action bar (kept for JS compatibility) -->
+            <div class="nz-action-bar">
+                <button id="nzSaveBtn" class="btn" t-on-click="onSaveClicked">Save</button>
+                <button id="nzResetBtn" class="btn" t-on-click="onResetClicked">Reset</button>
+            </div>
+        </div>
+    </t>
+</templates>
