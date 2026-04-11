@@ -16,7 +16,11 @@
         - Multi-step confirmation for safety
     """,
     'author': 'Nezam',
-    'website': 'https://nezam.co',
+    'company': 'Nezam',
+    'maintainer': 'Nezam',
+    'website': "https://www.nezam.co",
+    'support': 'support@nezam.co',
+    'images': ['static/description/banner.gif'],
     'depends': ['account'],
     'data': [
         'security/ir.model.access.csv',
