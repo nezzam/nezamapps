@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Chart of Accounts Cleanup &amp; Restore — Odoo 18</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+
+    <style>
+        :root {
+            --primary: #714B67;
+            --secondary: #017E84;
+            --accent: #7C7BAD;
+            --text: #121212;
+            --muted: #64728f;
+            --light: #f7f7f9;
+        }
+
+        body {
+            font-family: "Cairo", sans-serif;
+            color: var(--text);
+            background-color: #fff;
+        }
+
+        .hero-box {
+            border-radius: 16px;
+            background: #f8f8f8;
+            padding: 36px 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-box {
+            background: #fff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+        }
+
+        .section-title {
+            font-size: 38px;
+            font-weight: 800;
+            color: #5154a5;
+            text-transform: uppercase;
+        }
+
+        .highlight-card {
+            border-radius: 10px;
+            min-height: 168px;
+            border: 1px solid #ececf1;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
+            background: #fff;
+        }
+
+        .highlight-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            background: #f2ecf7;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .tabs-wrapper {
+            border: 1px solid #ebeef2;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .1);
+            overflow: hidden;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+            gap: 10px;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            border-radius: 30px;
+            padding: 10px 22px;
+            color: #121212;
+            font-weight: 600;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: #f1f1f1;
+            color: #121212;
+        }
+
+        .screen-box {
+            border-radius: 10px;
+            background: #f5f5f7;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .screen-shot {
+            border-radius: 10px;
+            background: #fff;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+        }
+
+        .faq-item {
+            border: 1px solid #ececf1;
+            border-radius: 10px;
+            background: #fff;
+            margin-bottom: 12px;
+            padding: 16px;
+        }
+
+        .footer-note {
+            border-top: 1px solid #ebebf0;
+            color: #6c7480;
+            font-size: 14px;
+            padding-top: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container py-4">
+
+    <div class="supports my-5 py-3">
+        <div class="row justify-content-between">
+            <div class="col-4"></div>
+            <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-between flex-wrap align-items-sm-center"
+                 style="border-bottom:1px solid rgba(0, 0, 0, 0.22)">
+                <div class="my-3">
+                    <img src="assets/misc/nezam_logo.png" style="width:auto !important; height:120px !important">
+                </div>
+                <div class="my-3 d-flex flex-column align-items-end">
+                    <div class="d-flex align-items-center">
+                        <div class="text-center" style="background-color:#017E84 !important;font-size: 0.8rem !important; color:#fff !important; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:50px !important; min-width: 183px !important;">Community</div>
+                        <div class="text-center" style="background-color:#875A7B !important; color:#fff !important;font-size: 0.8rem !important; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:50px !important;min-width: 183px !important;">Enterprise</div>
+                    </div>
+                    <div class="mt-2 d-flex align-items-center justify-content-end">
+                        <div class="text-center col" style="font-size:0.8rem !important; color:#5B899E !important; border:1px solid #5B899E; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:20px !important; min-width:120px !important"><i class="fa fa-check" style="color:green"></i> On Premise</div>
+                        <div class="text-center col" style="border:1px solid #017E84; font-size:0.8rem !important; color:#017E84 !important; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:20px !important; min-width:120px !important"><i class="fa fa-check" style="color:green"></i> Odoo Online</div>
+                        <div class="text-center col" style="font-size:0.8rem !important; border:1px solid #714b67; color:#714b67 !important; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:20px !important; min-width:120px !important"><i class="fa fa-check" style="color:green"></i> Odoo.sh</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8 mx-auto gap-4 d-flex flex-column align-items-center">
+        <p class="my-1 text-center text-uppercase" style="letter-spacing: 4px !important; color: #7f54b3; font-size: 14px; font-weight: 600; line-height: 15.96px;">NZ Solutions Apps for Odoo</p>
+        <h1 class="text-center text-uppercase my-0" style="color: #121212; font-size: 46px; font-weight: 700; line-height: normal;">Chart of Accounts Cleanup &amp; Restore — Odoo 18</h1>
+    </div>
+
+    <div class="hero-box mb-4">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <p class="text-muted mb-4" style="font-size: 18px;">
+                    Safely clean your chart of accounts with multi-step confirmation, detailed deletion logs, Excel export, and selective restore.
+                    The module tracks deleted, protected, referenced, and failed accounts so you always keep full audit visibility.
+                </p>
+
+                <div class="col-lg-12 d-flex justify-content-center align-items-center" style="margin: 3rem 0;">
+                    <img src="./assets/misc/nezam_logo.png" alt="NZ Solutions" width="100%" height="auto" style="width: 30%" class="img-responsive"/>
+                </div>
+
+                <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+                    <a href="mailto:support@nezam.co" target="_blank" style="background-color: transparent; border-radius: 35px; display: inline-block; padding: 7px 33px; border: 1px solid #7f54b3; color: #7f54b3; text-decoration: none; width: 231px;" class="mx-1 mb-2">
+                        <img class="img" style="width: 24px" src="./assets/icons/mail.svg"/>
+                        <span class="pl-2" style="font-size: 16px; vertical-align: middle">Email Us</span>
+                    </a>
+                    <a href="https://wa.me/+201550935225" target="_blank" style="background-color: #25D366; display: inline-block; color: #7f54b3; padding: 7px 33px; border: 1px solid #25D366; border-radius: 35px; text-decoration: none; width: 230px;" class="mx-1 mb-2">
+                        <img class="img" style="width: 24px" src="./assets/icons/whatsapp.svg"/>
+                        <span class="pl-2" style="color: #fff; font-size: 15px; vertical-align: middle">+20 1550935225</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <img src="./assets/screenshots/hero.gif" class="img-fluid" alt="Account cleaner demo" style="max-width: 100%;"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-box p-4 mb-5 text-center">
+        <h2 class="mb-3" style="font-size: 30px; font-weight: 800;">What does this module provide?</h2>
+        <p class="mb-0 text-muted" style="font-size: 17px; line-height: 1.9;">
+            This module adds a controlled process to remove chart of accounts in Odoo with strong safeguards.
+            Users must type confirmation text before deletion, can optionally force-delete protected accounts,
+            and every run creates a detailed log with counters for deleted/protected/referenced/failed accounts.
+            From each log, users can export the deleted accounts to Excel, mark lines for restore, restore selected accounts,
+            and manage selection quickly with Select All / Unselect All buttons.
+        </p>
+    </div>
+
+    <section class="mb-5">
+        <h2 class="text-center section-title mb-4">KEY HIGHLIGHTS</h2>
+        <div class="row g-3">
+            <div class="col-md-6"><div class="highlight-card p-3 d-flex gap-3 align-items-start"><div class="highlight-icon"><i class="fa-solid fa-triangle-exclamation"></i></div><div><h5 class="mb-2" style="font-weight:700;">Multi-Step Deletion Safety</h5><p class="mb-0 text-muted">Deletion starts with a confirmation wizard and requires typing DELETE. Force-delete has an extra final warning step with CONFIRM DELETE.</p></div></div></div>
+            <div class="col-md-6"><div class="highlight-card p-3 d-flex gap-3 align-items-start"><div class="highlight-icon"><i class="fa-solid fa-list-check"></i></div><div><h5 class="mb-2" style="font-weight:700;">Detailed Result Tracking</h5><p class="mb-0 text-muted">Each operation records totals for deleted, protected, referenced, and failed accounts so the result is always transparent.</p></div></div></div>
+            <div class="col-md-6"><div class="highlight-card p-3 d-flex gap-3 align-items-start"><div class="highlight-icon"><i class="fa-solid fa-file-excel"></i></div><div><h5 class="mb-2" style="font-weight:700;">Excel Export</h5><p class="mb-0 text-muted">Export deleted chart of accounts into an Odoo-style Excel file and keep it as backup for future recovery scenarios.</p></div></div></div>
+            <div class="col-md-6"><div class="highlight-card p-3 d-flex gap-3 align-items-start"><div class="highlight-icon"><i class="fa-solid fa-rotate-left"></i></div><div><h5 class="mb-2" style="font-weight:700;">Selective Restore</h5><p class="mb-0 text-muted">Restore only selected deleted accounts from log lines, with duplicate checks and fallback create strategy.</p></div></div></div>
+            <div class="col-md-6"><div class="highlight-card p-3 d-flex gap-3 align-items-start"><div class="highlight-icon"><i class="fa-solid fa-check-double"></i></div><div><h5 class="mb-2" style="font-weight:700;">Bulk Selection Tools</h5><p class="mb-0 text-muted">Use Select All / Unselect All on log lines to speed up restore preparation for large account sets.</p></div></div></div>
+            <div class="col-md-6"><div class="highlight-card p-3 d-flex gap-3 align-items-start"><div class="highlight-icon"><i class="fa-solid fa-shield-halved"></i></div><div><h5 class="mb-2" style="font-weight:700;">Accounting Manager Restricted</h5><p class="mb-0 text-muted">Access is restricted to Accounting Managers for both cleanup and restoration operations.</p></div></div></div>
+        </div>
+    </section>
+
+    <section class="tabs-wrapper mb-5">
+        <ul class="nav nav-tabs justify-content-center bg-white py-3" id="myTab" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab">Screenshots</a></li>
+            <li class="nav-item"><a class="nav-link" id="feature-tab" data-bs-toggle="tab" href="#feature" role="tab">Features</a></li>
+            <li class="nav-item"><a class="nav-link" id="faq-tab" data-bs-toggle="tab" href="#faq" role="tab">FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" id="release-tab" data-bs-toggle="tab" href="#release" role="tab">Releases</a></li>
+        </ul>
+
+        <div class="tab-content p-md-4 p-3" id="myTabContent">
+            <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">1) Start Cleanup Action</h4><p class="text-center text-muted mb-3">From Chart of Accounts, click the cleanup action to open the deletion confirmation wizard.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen2.png" class="img-fluid" alt="Open cleanup wizard"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">2) Type DELETE and Confirm</h4><p class="text-center text-muted mb-3">In the wizard, type <b>DELETE</b> and click the delete button to proceed with the normal protected-safe deletion flow.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen3.png" class="img-fluid" alt="Type DELETE confirmation"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">3) Deletion Result Summary</h4><p class="text-center text-muted mb-3">A result message appears showing how many accounts were deleted, protected, and failed during deletion.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen4.png" class="img-fluid" alt="Deletion counters"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">4) Open Deletion Logs Menu</h4><p class="text-center text-muted mb-3">Go to the dedicated Deletion Logs menu to review all cleanup operations.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen5.png" class="img-fluid" alt="Deletion logs menu"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">5) Log Form with Deleted Accounts</h4><p class="text-center text-muted mb-3">Open a log record to see full details and the deleted account lines available for restoration.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen6.png" class="img-fluid" alt="Log details and lines"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">6) Export Excel Button</h4><p class="text-center text-muted mb-3">Use the <b>Export Chart of Accounts</b> button to download the deleted accounts in Excel format.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen7.png" class="img-fluid" alt="Export to xlsx"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">7) Exported Excel File</h4><p class="text-center text-muted mb-3">The exported sheet follows Odoo-style structure and can be archived for backup and recovery purposes.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen8.png" class="img-fluid" alt="Exported excel sample"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">8) Select Lines for Restore</h4><p class="text-center text-muted mb-3">From account lines, choose records manually or use <b>Select All</b> / <b>Unselect All</b> shortcuts.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen9.png" class="img-fluid" alt="Select restore lines"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">9) Restore Selected Accounts</h4><p class="text-center text-muted mb-3">After selecting accounts, click <b>Restore Marked Accounts</b> to bring them back to chart of accounts.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen10.png" class="img-fluid" alt="Restore action"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">10) Restore Success Notification</h4><p class="text-center text-muted mb-3">A notification confirms restored/failed/skipped totals so you can verify the restore outcome instantly.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen11.png" class="img-fluid" alt="Restore result notification"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">11) Open Deletion Popup Again</h4><p class="text-center text-muted mb-3">You can reopen the deletion popup at any time to start a new cleanup operation.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen12.png" class="img-fluid" alt="Reopen deletion wizard"></div></div>
+                <div class="screen-box"><h4 class="text-center mb-3" style="font-weight:700;">12) Enable Force Delete + Type DELETE</h4><p class="text-center text-muted mb-3">Activate force delete mode, type <b>DELETE</b>, and continue to the final safety confirmation step.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen13.png" class="img-fluid" alt="Force delete option"></div></div>
+                <div class="screen-box mb-0"><h4 class="text-center mb-3" style="font-weight:700;">13) Final Warning Confirmation</h4><p class="text-center text-muted mb-3">The final warning wizard appears and requires <b>CONFIRM DELETE</b> before force deletion is executed.</p><div class="screen-shot text-center"><img src="./assets/screenshots/screen14.png" class="img-fluid" alt="Final warning confirm delete"></div></div>
+            </div>
+
+            <div class="tab-pane fade" id="feature" role="tabpanel">
+                <div class="row g-3">
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Server action cleanup:</b> Trigger delete-all flow directly from chart of accounts actions.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Typed confirmation:</b> Requires DELETE text before running deletion.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Force delete mode:</b> Optional mode for deleting protected accounts with extra final warning.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Detailed deletion logs:</b> Saves totals and per-account line snapshots after every run.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Excel export:</b> Download deleted chart accounts in .xlsx format.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Selective restore:</b> Restore only chosen deleted accounts from log lines.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Select all / unselect all:</b> Fast bulk selection tools for restore workflow.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Duplicate-safe restore:</b> Skips accounts that already exist in the chart.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Snapshot-based rebuild:</b> Restores account values from stored JSON snapshots.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Manager-only access:</b> Restricted to Accounting Managers using ACL + group checks.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Notification summaries:</b> Live success/warning messages after delete/restore operations.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Odoo 18 ready:</b> Built for Odoo 18 Community and Enterprise.</div></div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="faq" role="tabpanel">
+                <div class="faq-item"><h6 style="font-weight:700;">Who can run account cleanup?</h6><p class="text-muted mb-0">Only users in the Accounting Manager group can run deletion and restore actions.</p></div>
+                <div class="faq-item"><h6 style="font-weight:700;">Can I delete protected accounts?</h6><p class="text-muted mb-0">Yes, via Force Delete mode, but it requires an additional final confirmation step to reduce accidental damage.</p></div>
+                <div class="faq-item"><h6 style="font-weight:700;">What if some accounts cannot be deleted?</h6><p class="text-muted mb-0">The process continues and logs protected, referenced, and failed accounts with reasons where possible.</p></div>
+                <div class="faq-item"><h6 style="font-weight:700;">How do I restore deleted accounts?</h6><p class="text-muted mb-0">Open a deletion log, mark lines to restore, then click Restore Marked Accounts.</p></div>
+                <div class="faq-item"><h6 style="font-weight:700;">Can I export the deleted chart for backup?</h6><p class="text-muted mb-0">Yes, use Export Chart of Accounts to download an Excel file from each log.</p></div>
+                <div class="faq-item"><h6 style="font-weight:700;">Does restore create duplicates?</h6><p class="text-muted mb-0">No. The module checks if account code already exists and skips duplicates.</p></div>
+                <div class="faq-item"><h6 style="font-weight:700;">Can I restore all lines quickly?</h6><p class="text-muted mb-0">Yes. Use Select All then Restore Marked Accounts.</p></div>
+                <div class="faq-item mb-0"><h6 style="font-weight:700;">Is this compatible with Odoo 18?</h6><p class="text-muted mb-0">Yes, this release targets Odoo 18 Community and Enterprise.</p></div>
+            </div>
+
+            <div class="tab-pane fade" id="release" role="tabpanel">
+                <div class="faq-item mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+                        <h6 class="mb-1" style="font-weight:700; color: var(--primary);">Version 18.0.1.0.0</h6>
+                        <span class="text-muted">Initial Odoo 18 Release</span>
+                    </div>
+                    <ul class="text-muted mb-0">
+                        <li>Ported from Odoo 19 to Odoo 18</li>
+                        <li>Delete all chart of accounts with confirmation wizard</li>
+                        <li>Optional force-delete flow with final warning wizard</li>
+                        <li>Detailed deletion logs with account-level snapshots</li>
+                        <li>Excel export for deleted chart of accounts</li>
+                        <li>Selective restore with bulk select/unselect tools</li>
+                        <li>Compatibility fixes for Odoo 18 loading and views</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="text-center footer-note mb-3">&copy; 2026 NZ Solutions - All rights reserved.</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
