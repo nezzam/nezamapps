@@ -4,8 +4,7 @@ import io
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-from odoo.tools.misc import xlsxwriter
-
+import xlsxwriter
 
 class XAccountCleanerLog(models.Model):
     _name = 'x_account.cleaner.log'
@@ -381,7 +380,13 @@ class XAccountCleanerLogLine(models.Model):
             vals['reconcile'] = False
             vals['tax_ids'] = [(6, 0, [])]
 
-        return {k: v for k, v in vals.items() if v not in (None, '') or k in ('currency_id', 'group_id')}
+        account_fields = self.env['account.account']._fields
+        cleaned_vals = {
+            key: value
+            for key, value in vals.items()
+            if key in account_fields and (value not in (None, '') or key in ('currency_id', 'group_id'))
+        }
+        return cleaned_vals
 
     def _prepare_minimal_account_vals(self, snapshot):
         self.ensure_one()
@@ -415,4 +420,5 @@ class XAccountCleanerLogLine(models.Model):
         if account_type == 'off_balance':
             vals['tax_ids'] = [(6, 0, [])]
 
-        return vals
+        account_fields = self.env['account.account']._fields
+        return {key: value for key, value in vals.items() if key in account_fields}

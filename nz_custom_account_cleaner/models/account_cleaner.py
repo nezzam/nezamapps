@@ -151,8 +151,9 @@ class AccountCleaner(models.Model):
 
     def _build_account_snapshot(self, account):
         """Build serializable snapshot for account restore"""
+        account_fields = account._fields
         fields_to_capture = {}
-        for field_name, field in account._fields.items():
+        for field_name, field in account_fields.items():
             if field_name in ('id', 'display_name', '__last_update'):
                 continue
             if field.type == 'one2many':
@@ -173,13 +174,20 @@ class AccountCleaner(models.Model):
         fields_to_capture['name'] = account.name
         fields_to_capture['account_type'] = account.account_type
         fields_to_capture['reconcile'] = account.reconcile
-        fields_to_capture['currency_id'] = account.currency_id.id if account.currency_id else False
-        fields_to_capture['allowed_journal_ids'] = account.allowed_journal_ids.ids
-        fields_to_capture['group_id'] = account.group_id.id if account.group_id else False
-        fields_to_capture['non_trade'] = account.non_trade
-        fields_to_capture['tag_ids'] = account.tag_ids.ids
-        fields_to_capture['tax_ids'] = account.tax_ids.ids
-        fields_to_capture['company_ids'] = account.company_ids.ids
+        if 'currency_id' in account_fields:
+            fields_to_capture['currency_id'] = account.currency_id.id if account.currency_id else False
+        if 'allowed_journal_ids' in account_fields:
+            fields_to_capture['allowed_journal_ids'] = account.allowed_journal_ids.ids
+        if 'group_id' in account_fields:
+            fields_to_capture['group_id'] = account.group_id.id if account.group_id else False
+        if 'non_trade' in account_fields:
+            fields_to_capture['non_trade'] = account.non_trade
+        if 'tag_ids' in account_fields:
+            fields_to_capture['tag_ids'] = account.tag_ids.ids
+        if 'tax_ids' in account_fields:
+            fields_to_capture['tax_ids'] = account.tax_ids.ids
+        if 'company_ids' in account_fields:
+            fields_to_capture['company_ids'] = account.company_ids.ids
 
         return fields_to_capture
 

@@ -13,13 +13,6 @@ action = env['account.cleaner'].delete_all_accounts_with_confirmation()
 </field>
     </record>
 
-    <!-- Confirmation Wizard -->
-    <record id="model_x_account_delete_confirmation_wizard" model="ir.model">
-        <field name="name">Account Deletion Confirmation</field>
-        <field name="model">x_account.delete.confirmation.wizard</field>
-        <field name="info">Wizard for confirming account deletion</field>
-    </record>
-
     <record id="action_open_account_delete_confirmation_wizard" model="ir.actions.act_window">
         <field name="name">Delete All Chart Accounts</field>
         <field name="res_model">x_account.delete.confirmation.wizard</field>
@@ -97,13 +90,6 @@ action = env['account.cleaner'].delete_all_accounts_with_confirmation()
         </field>
     </record>
 
-    <!-- Final Warning Wizard -->
-    <record id="model_x_account_final_warning_wizard" model="ir.model">
-        <field name="name">Final Deletion Warning</field>
-        <field name="model">x_account.final_warning_wizard</field>
-        <field name="info">Final warning before force deletion</field>
-    </record>
-
     <record id="x_account_final_warning_wizard_view_form" model="ir.ui.view">
         <field name="name">x_account.final_warning.wizard.form</field>
         <field name="model">x_account.final_warning_wizard</field>
@@ -141,13 +127,6 @@ action = env['account.cleaner'].delete_all_accounts_with_confirmation()
                 </footer>
             </form>
         </field>
-    </record>
-
-    <!-- Log Model -->
-    <record id="model_x_account_cleaner_log" model="ir.model">
-        <field name="name">Account Deletion Log</field>
-        <field name="model">x_account.cleaner.log</field>
-        <field name="info">Log for tracking account deletion operations</field>
     </record>
 
     <!-- list view for logs -->

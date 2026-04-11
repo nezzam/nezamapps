@@ -1,6 +1,6 @@
 {
     'name': 'Chart of Accounts Cleanup & Restore',
-    'version': '18.0.1.0',
+    'version': '18.0.1.0.0',
     'category': 'Accounting',
     'summary': 'Advanced module to delete all accounts with detailed tracking',
     'description': """
@@ -16,7 +16,11 @@
         - Multi-step confirmation for safety
     """,
     'author': 'Nezam',
-    'website': 'https://nezam.co',
+    'company': 'Nezam',
+    'maintainer': 'Nezam',
+    'website': "https://www.nezam.co",
+    'support': 'support@nezam.co',
+    'images': ['static/description/banner.gif'],
     'depends': ['account'],
     'data': [
         'security/ir.model.access.csv',
