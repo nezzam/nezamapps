@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Multi Destination Location Stock Transfer Line — Odoo 17</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+
+    <style>
+        :root {
+            --primary: #714B67;
+            --secondary: #017E84;
+            --accent: #7C7BAD;
+            --text: #121212;
+            --muted: #64728f;
+            --light: #f7f7f9;
+        }
+
+        body {
+            font-family: "Cairo", sans-serif;
+            color: var(--text);
+            background-color: #fff;
+        }
+
+        .hero-box {
+            border-radius: 16px;
+            background: #f8f8f8;
+            padding: 36px 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 800;
+        }
+
+        .panel-box {
+            background: #fff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+        }
+
+        .section-title {
+            font-size: 38px;
+            font-weight: 800;
+            color: #5154a5;
+            text-transform: uppercase;
+        }
+
+        .highlight-card {
+            border-radius: 10px;
+            min-height: 168px;
+            border: 1px solid #ececf1;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
+            background: #fff;
+        }
+
+        .highlight-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            background: #f2ecf7;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .tabs-wrapper {
+            border: 1px solid #ebeef2;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .1);
+            overflow: hidden;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+            gap: 10px;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            border-radius: 30px;
+            padding: 10px 22px;
+            color: #121212;
+            font-weight: 600;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: #f1f1f1;
+            color: #121212;
+        }
+
+        .screen-box {
+            border-radius: 10px;
+            background: #f5f5f7;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .screen-shot {
+            border-radius: 10px;
+            background: #fff;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+        }
+
+        .faq-item {
+            border: 1px solid #ececf1;
+            border-radius: 10px;
+            background: #fff;
+            margin-bottom: 12px;
+            padding: 16px;
+        }
+
+        .footer-note {
+            border-top: 1px solid #ebebf0;
+            color: #6c7480;
+            font-size: 14px;
+            padding-top: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 30px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container py-4">
+
+    <div class="supports my-5 py-3">
+        <div class="row justify-content-between">
+            <div class="col-4"></div>
+            <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-between flex-wrap align-items-sm-center"
+                 style="border-bottom:1px solid rgba(0, 0, 0, 0.22)">
+                <div class="my-3">
+                    <img src="assets/misc/nezam_logo.png" style="width:auto !important; height:120px !important">
+                </div>
+                <div class="my-3 d-flex flex-column align-items-end">
+                    <div class="d-flex align-items-center">
+                        <div class="text-center"
+                             style="background-color:#017E84 !important;font-size: 0.8rem !important; color:#fff !important; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:50px !important; min-width: 183px !important;">
+                            Community
+                        </div>
+                        <div class="text-center"
+                             style="background-color:#875A7B !important; color:#fff !important;font-size: 0.8rem !important; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:50px !important;min-width: 183px !important;">
+                            Enterprise
+                        </div>
+                    </div>
+                    <div class="mt-2 d-flex align-items-center justify-content-end">
+                        <div class="text-center col"
+                             style="font-size:0.8rem !important; color:#5B899E !important; border:1px solid #5B899E; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:20px !important; min-width:120px !important">
+                            <i class="fa fa-check" style="color:green"></i> On Premise
+                        </div>
+                        <div class="text-center col"
+                             style="border:1px solid #017E84; font-size:0.8rem !important; color:#017E84 !important; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:20px !important; min-width:120px !important">
+                            <i class="fa fa-check" style="color:green"></i> Odoo Online
+                        </div>
+                        <div class="text-center col"
+                             style="font-size:0.8rem !important; border:1px solid #714b67; color:#714b67 !important; font-weight:500 !important; padding:4px !important; margin:0 3px !important; border-radius:20px !important; min-width:120px !important">
+                            <i class="fa fa-check" style="color:green"></i> Odoo.sh
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8 mx-auto gap-4 d-flex flex-column align-items-center">
+        <p class="my-1 text-center text-uppercase"
+           style="letter-spacing: 4px !important; color: #7f54b3; font-weight: bold; text-align: center; font-size: 14px; font-weight: 600; line-height: 15.96px; text-transform: uppercase;">
+            NZ Solutions Apps for Odoo
+        </p>
+        <h1 class="text-center text-uppercase my-0"
+            style="color: #121212; font-size: 46px; font-weight: 700; line-height: normal;">
+            Multi Destination Location Stock Transfer Line — Odoo 17
+        </h1>
+    </div>
+
+    <div class="hero-box mb-4">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <p class="text-muted mb-4" style="font-size: 18px;">
+                    Control transfer destinations at operation-line level. Enable one toggle and assign a different destination location for each stock move line inside the same transfer, with full visibility in move history and printed reports.
+                </p>
+
+                <div class="col-lg-12 d-flex justify-content-center align-items-center" style="margin: 3rem 0;">
+                    <img src="./assets/misc/nezam_logo.png" alt="NZ Solutions" width="100%" height="auto" style="width: 30%" class="img-responsive"/>
+                </div>
+
+                <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+                    <a href="mailto:support@nezam.co" target="_blank"
+                       style="background-color: transparent; border-radius: 35px; display: inline-block; padding: 7px 33px; border: 1px solid #7f54b3; color: #7f54b3; text-decoration: none; width: 231px;"
+                       class="mx-1 mb-2 deep-1 deep_hover">
+                        <img class="img" style="width: 24px" src="./assets/icons/mail.svg"/>
+                        <span class="pl-2" style="font-size: 16px; vertical-align: middle">Email Us</span>
+                    </a>
+                    <a href="https://wa.me/+201550935225" target="_blank"
+                       style="background-color: #25D366; display: inline-block; color: #7f54b3; padding: 7px 33px; border: 1px solid #25D366; border-radius: 35px; text-decoration: none; width: 230px;"
+                       class="mx-1 mb-2 deep-1 deep_hover">
+                        <img class="img" style="width: 24px" src="./assets/icons/whatsapp.svg"/>
+                        <span class="pl-2" style="color: #fff; font-size: 15px; vertical-align: middle">+20 1550935225</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-12 text-center">
+                <img src="./assets/screenshots/hero.gif" class="img-fluid" alt="Multi destination transfer lines demo" style="max-width: 100%;"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-box p-4 mb-5 text-center">
+        <h2 class="mb-3" style="font-size: 30px; font-weight: 800;">What does this module provide?</h2>
+        <p class="mb-0 text-muted" style="font-size: 17px; line-height: 1.9;">
+            This module extends Odoo Inventory transfers by adding a <b>Multi Destination Location</b> toggle on internal transfer forms.
+            When enabled, the transfer line list displays a destination column so you can set <b>a different destination location per operation line</b>.
+            When disabled, all editable move lines are automatically synchronized with the transfer-level destination field, so behavior stays exactly like standard Odoo.
+            The feature is available for users with multi-location access and is hidden for outgoing pickings, matching operational best practice.
+        </p>
+    </div>
+
+    <section class="mb-5">
+        <h2 class="text-center section-title mb-4">KEY HIGHLIGHTS</h2>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-toggle-on"></i></div>
+                    <div>
+                        <h5 class="mb-2" style="font-weight:700;">One Toggle Activation</h5>
+                        <p class="mb-0 text-muted">Adds a boolean toggle named <b>Multi Destination Location</b> on transfer forms to switch between one common destination and per-line destinations.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-table-columns"></i></div>
+                    <div>
+                        <h5 class="mb-2" style="font-weight:700;">Destination Column Per Line</h5>
+                        <p class="mb-0 text-muted">When enabled, a destination location column appears on operation lines so each move can be routed to a different target location in the same picking.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+                    <div>
+                        <h5 class="mb-2" style="font-weight:700;">Automatic Sync in Standard Mode</h5>
+                        <p class="mb-0 text-muted">When the toggle is off, all editable move lines are auto-synced with the transfer destination, preventing mismatched destinations and keeping default flow clean.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <div>
+                        <h5 class="mb-2" style="font-weight:700;">Clear Move History</h5>
+                        <p class="mb-0 text-muted">Operation lines keep their selected destination locations, making stock move records and move history easier to review and audit.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-file-lines"></i></div>
+                    <div>
+                        <h5 class="mb-2" style="font-weight:700;">Report Visibility</h5>
+                        <p class="mb-0 text-muted">Destination values chosen per line are reflected in transfer-related data and can be verified in printed/internal operational reports.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                    <div>
+                        <h5 class="mb-2" style="font-weight:700;">Native Odoo Integration</h5>
+                        <p class="mb-0 text-muted">Implemented as a light inheritance of stock picking views and logic, keeping standard UX while adding high-value control for warehouse teams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tabs-wrapper mb-5">
+        <ul class="nav nav-tabs justify-content-center bg-white py-3" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Screenshots</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="feature-tab" data-bs-toggle="tab" href="#feature" role="tab" aria-controls="feature" aria-selected="false">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="faq-tab" data-bs-toggle="tab" href="#faq" role="tab" aria-controls="faq" aria-selected="false">FAQ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="release-tab" data-bs-toggle="tab" href="#release" role="tab" aria-controls="release" aria-selected="false">Releases</a>
+            </li>
+        </ul>
+
+        <div class="tab-content p-md-4 p-3" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+
+                <div class="screen-box">
+                    <h4 class="text-center mb-3" style="font-weight:700;">1) Multi Destination Toggle on Transfer</h4>
+                    <p class="text-center text-muted mb-3">The transfer form includes a new <b>Multi Destination Location</b> toggle (visible for multi-location users). This is the main switch that enables per-line destination routing in operations.</p>
+                    <div class="screen-shot text-center"><img src="./assets/screenshots/screen2.png" class="img-fluid" alt="Multi Destination Location toggle on stock transfer form"></div>
+                </div>
+
+                <div class="screen-box">
+                    <h4 class="text-center mb-3" style="font-weight:700;">2) Per-Line Destination Column Appears</h4>
+                    <p class="text-center text-muted mb-3">After enabling the toggle, a destination column becomes available on operation lines, allowing you to choose a different destination location for each stock move line.</p>
+                    <div class="screen-shot text-center"><img src="./assets/screenshots/screen3.png" class="img-fluid" alt="Operation lines with destination location column visible"></div>
+                </div>
+
+                <div class="screen-box">
+                    <h4 class="text-center mb-3" style="font-weight:700;">3) Transfer Operations with Line-Level Destinations</h4>
+                    <p class="text-center text-muted mb-3">Each product line can now target a specific destination location in the same transfer. This is ideal for distributing incoming or internal stock to multiple bins, racks, or sublocations in one operation.</p>
+                    <div class="screen-shot text-center"><img src="./assets/screenshots/screen4.png" class="img-fluid" alt="Stock transfer operations showing different destination per line"></div>
+                </div>
+
+                <div class="screen-box">
+                    <h4 class="text-center mb-3" style="font-weight:700;">4) Move History and Traceability</h4>
+                    <p class="text-center text-muted mb-3">Move history reflects the selected destinations, giving warehouse and audit teams clear visibility of where each line actually moved and improving traceability of internal stock flows.</p>
+                    <div class="screen-shot text-center"><img src="./assets/screenshots/screen5.png" class="img-fluid" alt="Stock move history showing destination details"></div>
+                </div>
+
+                <div class="screen-box mb-0">
+                    <h4 class="text-center mb-3" style="font-weight:700;">5) Destination Locations in Report Output</h4>
+                    <p class="text-center text-muted mb-3">The report output displays destination locations according to your line-level choices, so printed/operational documents stay aligned with the exact routing configured in the transfer.</p>
+                    <div class="screen-shot text-center"><img src="./assets/screenshots/screen6.png" class="img-fluid" alt="Transfer report showing destination locations per line"></div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="feature" role="tabpanel" aria-labelledby="feature-tab">
+                <div class="row g-3">
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Multi Destination Location toggle:</b> Adds a clear switch on stock transfer forms to enable/disable destination control per operation line.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Per-line destination assignment:</b> Select a different destination location for each move line inside the same transfer.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Conditional column visibility:</b> Destination column on move lines appears only when multi-destination mode is active, keeping the default interface clean.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Automatic sync when disabled:</b> If multi-destination is off, editable lines automatically inherit the transfer-level destination location.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Onchange + write protection:</b> Synchronization is triggered on UI changes and server-side writes to keep data consistent.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Create-time consistency:</b> Newly created pickings are also synchronized when multi-destination is not enabled.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>State-safe updates:</b> Only editable moves are synchronized (excluding done/cancel moves).</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Outgoing protection:</b> The toggle is hidden for outgoing pickings to preserve standard delivery behavior.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Multi-location aware:</b> Designed for users with multi-location permissions in Inventory.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Move history clarity:</b> Selected destinations are easy to audit in transfer operations and stock move history views.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Report alignment:</b> Destination values appear according to line selections, improving operational communication.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Odoo 17 ready:</b> Compatible with Odoo 17 Community and Enterprise, built on native stock picking architecture.</div></div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">What does this module change in stock transfers?</h6>
+                    <p class="text-muted mb-0">It adds a <b>Multi Destination Location</b> toggle and allows destination selection per operation line when enabled.</p>
+                </div>
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">When does the per-line destination column appear?</h6>
+                    <p class="text-muted mb-0">The destination column appears on operation lines only when <b>Multi Destination Location</b> is enabled.</p>
+                </div>
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">What happens if I disable Multi Destination mode?</h6>
+                    <p class="text-muted mb-0">All editable move lines are automatically synchronized to the transfer-level destination location, restoring standard single-destination behavior.</p>
+                </div>
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">Does it affect done or cancelled move lines?</h6>
+                    <p class="text-muted mb-0">No. Synchronization targets only editable moves; done and cancelled moves are not modified.</p>
+                </div>
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">Is it available on outgoing deliveries?</h6>
+                    <p class="text-muted mb-0">No. The toggle is hidden for outgoing pickings by design.</p>
+                </div>
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">Do I need extra configuration after install?</h6>
+                    <p class="text-muted mb-0">No additional setup is required. Install the module and the feature is immediately available on eligible transfer forms.</p>
+                </div>
+                <div class="faq-item mb-0">
+                    <h6 style="font-weight:700;">Which editions are supported?</h6>
+                    <p class="text-muted mb-0">Supports <b>Odoo 17 Community and Enterprise</b> with Inventory multi-location usage.</p>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="release" role="tabpanel" aria-labelledby="release-tab">
+                <div class="faq-item mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+                        <h6 class="mb-1" style="font-weight:700; color: var(--primary);">Version 19.0.1.0.0</h6>
+                        <span class="text-muted">Initial Release</span>
+                    </div>
+                    <ul class="text-muted mb-0">
+                        <li>Added Multi Destination Location toggle on stock transfer form</li>
+                        <li>Enabled destination selection per operation line</li>
+                        <li>Conditional visibility of transfer destination field and line destination column</li>
+                        <li>Auto-sync of editable move destinations when multi-destination is disabled</li>
+                        <li>Onchange, create, and write synchronization logic for consistency</li>
+                        <li>State-safe updates excluding done and cancelled moves</li>
+                        <li>Outgoing picking toggle restriction</li>
+                        <li>Odoo 17 Community &amp; Enterprise support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel-box p-4 mb-5">
+        <h3 class="text-center mb-4" style="font-size: 34px; font-weight: 800; text-transform: uppercase;">Our Services</h3>
+        <div class="row mt-3">
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center"
+                         style="font-size:25px; font-weight:bold;background-color:#FFE2E5; margin:auto; gap: 16px; border-radius: 8px;">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="background-color:#FA5A7D; border-radius:50%; height:56px; width:56px">
+                            <img src="./assets/icons/gear.svg" class="img-responsive" height="28px" width="28px">
+                        </div>
+                        <span style="font-size: 18px; font-weight: 600;">Odoo Customization</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center"
+                         style="font-size:25px; font-weight:bold;background-color:#FFF4DE; margin:auto; gap: 16px; border-radius: 8px;">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="background-color:#FF947A; border-radius:50%; height:56px; width:56px">
+                            <img src="./assets/icons/wrench-icon.svg" class="img-responsive" height="28px" width="28px">
+                        </div>
+                        <span style="font-size: 18px; font-weight: 600;">Odoo Implementation</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center"
+                         style="font-size:25px; font-weight:bold;background-color:#DCFCE7; margin:auto; gap: 16px; border-radius: 8px;">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="background-color:#3CD856; border-radius:50%; height:56px; width:56px">
+                            <img src="./assets/icons/life-ring-icon.svg" class="img-responsive" height="28px" width="28px">
+                        </div>
+                        <span style="font-size: 18px; font-weight: 600;">Odoo Support</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center"
+                         style="font-size:25px; font-weight:bold;background-color:#F3E8FF; margin:auto; gap: 16px; border-radius: 8px;">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="background-color:#BF83FF; border-radius:50%; height:56px; width:56px">
+                            <img src="./assets/icons/arrows-repeat.svg" class="img-responsive" height="28px" width="28px">
+                        </div>
+                        <span style="font-size: 18px; font-weight: 600;">Odoo Migration</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center"
+                         style="font-size:25px; font-weight:bold;background-color:#F1F9FF; margin:auto; gap: 16px; border-radius: 8px;">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="background-color:#01649C; border-radius:50%; height:56px; width:56px">
+                            <img src="./assets/icons/puzzle-piece-icon.svg" class="img-responsive" height="28px" width="28px">
+                        </div>
+                        <span style="font-size: 18px; font-weight: 600;">Odoo Integration</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center"
+                         style="font-size:25px; font-weight:bold;background-color:#EDF8ED; margin:auto; gap: 16px; border-radius: 8px;">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="background-color:#69CC70; border-radius:50%; height:56px; width:56px">
+                            <img src="./assets/icons/odoo-consultancy.svg" class="img-responsive" height="28px" width="28px">
+                        </div>
+                        <span style="font-size: 18px; font-weight: 600;">Odoo Consultancy</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center"
+                         style="font-size:25px; font-weight:bold;background-color:#F1F6FF; margin:auto; gap: 16px; border-radius: 8px;">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="background-color:#2E4556; border-radius:50%; height:56px; width:56px">
+                            <img src="./assets/icons/odoo-licencing.svg" class="img-responsive" height="28px" width="28px">
+                        </div>
+                        <span style="font-size: 18px; font-weight: 600;">Odoo Licensing</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center"
+                         style="font-size:25px; font-weight:bold;background-color:#FAF6EA; margin:auto; gap: 16px; border-radius: 8px;">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="background-color:#FCD12C; border-radius:50%; height:56px; width:56px">
+                            <img src="./assets/icons/hire-odoo.svg" class="img-responsive" height="28px" width="28px">
+                        </div>
+                        <span style="font-size: 18px; font-weight: 600;">Hire Odoo Developer</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="text-center footer-note mb-3">
+        &copy; 2026 NZ Solutions - All rights reserved.
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
