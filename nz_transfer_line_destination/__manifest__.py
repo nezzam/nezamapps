@@ -1,6 +1,6 @@
 {
     'name': 'Multi Destination Location Stock Transfer Line',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.0.1',
     'summary': 'Set destination location per operation line in transfers',
     'author': 'Nezam',
     'company': 'Nezam',
