@@ -39,5 +39,5 @@ msgstr "تحويل "
 
 #. module: custom_transfer_line_destination
 #: model_terms:ir.ui.view,arch_db:custom_transfer_line_destination.view_picking_form_inherit_line_destination
-msgid "التحويل لمخازن متعدده"
-msgstr ""
+msgid "Multi Destination Location"
+msgstr "التحويل لمخازن متعدده"
