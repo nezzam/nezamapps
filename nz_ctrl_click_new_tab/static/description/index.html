@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CTRL + Click to Open New Tab &#8212; Odoo 18</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+
+    <style>
+        :root {
+            --primary: #714B67;
+            --secondary: #017E84;
+            --accent: #7C7BAD;
+            --text: #121212;
+            --muted: #64728f;
+            --light: #f7f7f9;
+        }
+        body { font-family: "Cairo", sans-serif; color: var(--text); background-color: #fff; }
+        .hero-box { border-radius: 16px; background: #f8f8f8; padding: 36px 20px 0; position: relative; overflow: hidden; }
+        .panel-box { background: #fff; border: 1px solid #e7e7e7; border-radius: 12px; }
+        .section-title { font-size: 38px; font-weight: 800; color: #5154a5; text-transform: uppercase; }
+        .highlight-card { border-radius: 10px; min-height: 168px; border: 1px solid #ececf1; box-shadow: 0 4px 14px rgba(0,0,0,.05); background: #fff; }
+        .highlight-icon { width: 54px; height: 54px; border-radius: 12px; background: #f2ecf7; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .tabs-wrapper { border: 1px solid #ebeef2; border-radius: 8px; box-shadow: 0 8px 20px -4px rgba(0,0,0,.1); overflow: hidden; }
+        .nav-tabs { border-bottom: none; gap: 10px; }
+        .nav-tabs .nav-link { border: none; border-radius: 30px; padding: 10px 22px; color: #121212; font-weight: 600; }
+        .nav-tabs .nav-link.active { background: #f1f1f1; color: #121212; }
+        .screen-box { border-radius: 10px; background: #f5f5f7; padding: 20px; margin-bottom: 20px; }
+        .screen-shot { border-radius: 10px; background: #fff; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+        .faq-item { border: 1px solid #ececf1; border-radius: 10px; background: #fff; margin-bottom: 12px; padding: 16px; }
+        .footer-note { border-top: 1px solid #ebebf0; color: #6c7480; font-size: 14px; padding-top: 16px; }
+        @media (max-width: 768px) { .section-title { font-size: 28px; } }
+    </style>
+</head>
+<body>
+<div class="container py-4">
+
+    <!-- Company header -->
+    <div class="supports my-5 py-3">
+        <div class="row justify-content-between">
+            <div class="col-sm-12 d-flex justify-content-between flex-wrap align-items-sm-center"
+                 style="border-bottom:1px solid rgba(0,0,0,0.22)">
+                <div class="my-3">
+                    <img src="assets/misc/nezam_logo.png" style="width:auto !important;height:120px !important">
+                </div>
+                <div class="my-3 d-flex flex-column align-items-end">
+                    <div class="d-flex align-items-center">
+                        <div class="text-center" style="background-color:#017E84 !important;font-size:0.8rem !important;color:#fff !important;font-weight:500 !important;padding:4px !important;margin:0 3px !important;border-radius:50px !important;min-width:183px !important;">Community</div>
+                        <div class="text-center" style="background-color:#875A7B !important;color:#fff !important;font-size:0.8rem !important;font-weight:500 !important;padding:4px !important;margin:0 3px !important;border-radius:50px !important;min-width:183px !important;">Enterprise</div>
+                    </div>
+                    <div class="mt-2 d-flex align-items-center justify-content-end">
+                        <div class="text-center col" style="font-size:0.8rem !important;color:#5B899E !important;border:1px solid #5B899E;font-weight:500 !important;padding:4px !important;margin:0 3px !important;border-radius:20px !important;min-width:120px !important"><i class="fa fa-check" style="color:green"></i> On Premise</div>
+                        <div class="text-center col" style="border:1px solid #017E84;font-size:0.8rem !important;color:#017E84 !important;font-weight:500 !important;padding:4px !important;margin:0 3px !important;border-radius:20px !important;min-width:120px !important"><i class="fa fa-check" style="color:green"></i> Odoo Online</div>
+                        <div class="text-center col" style="font-size:0.8rem !important;border:1px solid #714b67;color:#714b67 !important;font-weight:500 !important;padding:4px !important;margin:0 3px !important;border-radius:20px !important;min-width:120px !important"><i class="fa fa-check" style="color:green"></i> Odoo.sh</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Module title -->
+    <div class="col-lg-8 mx-auto gap-4 d-flex flex-column align-items-center">
+        <p class="my-1 text-center text-uppercase" style="letter-spacing:4px !important;color:#7f54b3;font-weight:bold;font-size:14px;line-height:15.96px;text-transform:uppercase;">NZ Solutions Apps for Odoo</p>
+        <h1 class="text-center text-uppercase my-0" style="color:#121212;font-size:46px;font-weight:700;line-height:normal;">CTRL + Click to Open New Tab &#8212; Odoo 18</h1>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero-box mb-4">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <p class="text-muted mb-4" style="font-size:18px;">
+                    Adds a simple, practical behavior to the Odoo backend: hold <strong>Ctrl + Click</strong> (or <strong>Cmd + Click</strong> on macOS) on Smart Buttons, Kanban cards, or Many2one links to open the related list or record in a new browser tab/window.
+                    Keep your current view open while you inspect related records — no configuration and no extra server calls required.
+                </p>
+                <div class="col-lg-12 d-flex justify-content-center align-items-center" style="margin:3rem 0;">
+                    <img src="./assets/misc/nezam_logo.png" alt="NZ Solutions" style="width:30%" class="img-responsive"/>
+                </div>
+                <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+                    <a href="mailto:support@nezam.co" target="_blank" style="background-color:transparent;border-radius:35px;display:inline-block;padding:7px 33px;border:1px solid #7f54b3;color:#7f54b3;text-decoration:none;width:231px;" class="mx-1 mb-2">
+                        <img style="width:24px" src="./assets/icons/mail.svg"/> <span style="font-size:16px;vertical-align:middle">Email Us</span>
+                    </a>
+                    <a href="https://wa.me/+201550935225" target="_blank" style="background-color:#25D366;display:inline-block;color:#fff;padding:7px 33px;border:1px solid #25D366;border-radius:35px;text-decoration:none;width:230px;" class="mx-1 mb-2">
+                        <img style="width:24px" src="./assets/icons/whatsapp.svg"/> <span style="color:#fff;font-size:15px;vertical-align:middle">+20 1550935225</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <img src="./assets/screenshots/hero.gif" class="img-fluid" alt="Chatter Search and Filter Demo"/>
+            </div>
+        </div>
+    </div>
+
+    <!-- What does this module provide? -->
+    <div class="panel-box p-4 mb-5 text-center">
+        <h2 class="mb-3" style="font-size:30px;font-weight:800;">What does this module provide?</h2>
+        <p class="mb-0 text-muted" style="font-size:17px;line-height:1.9;">
+            Enables opening related records and lists in new tabs using <strong>Ctrl/Cmd + Click</strong>. Works with Smart Buttons (to open related lists), Kanban cards, and Many2one links so you can browse linked data without losing your current context.
+        </p>
+    </div>
+
+    <!-- Key Highlights -->
+    <section class="mb-5">
+        <h2 class="text-center section-title mb-4">KEY HIGHLIGHTS</h2>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                    <div><h5 class="mb-2" style="font-weight:700;">Open In New Tab</h5>
+                    <p class="mb-0 text-muted">Hold <strong>Ctrl/Cmd + Click</strong> on supported elements to open them in a new tab/window while keeping the current view intact for parallel work.</p></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-mouse-pointer"></i></div>
+                    <div><h5 class="mb-2" style="font-weight:700;">Supports Smart Buttons, Kanban, Many2one</h5>
+                    <p class="mb-0 text-muted">Works with Smart Buttons to open related lists, Kanban cards, and Many2one links to open referenced records in a new tab.</p></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <div><h5 class="mb-2" style="font-weight:700;">Instant & Lightweight</h5>
+                    <p class="mb-0 text-muted">Client-side behavior only — no additional server requests, no database changes, and minimal performance impact.</p></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-check"></i></div>
+                    <div><h5 class="mb-2" style="font-weight:700;">Zero Configuration</h5>
+                    <p class="mb-0 text-muted">Install and it works — no settings, no permissions, and no user configuration required.</p></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div><h5 class="mb-2" style="font-weight:700;">Keeps Context</h5>
+                    <p class="mb-0 text-muted">Opening related content in a new tab preserves the original page so you can compare and multitask without losing context.</p></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight-card p-3 d-flex gap-3 align-items-start">
+                    <div class="highlight-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                    <div><h5 class="mb-2" style="font-weight:700;">Browser Compatibility</h5>
+                    <p class="mb-0 text-muted">Works across major browsers (Chrome, Firefox, Edge, Safari) and supports Cmd+Click on macOS.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabs -->
+    <section class="tabs-wrapper mb-5">
+        <ul class="nav nav-tabs justify-content-center bg-white py-3" id="myTab" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab">Screenshots</a></li>
+            <li class="nav-item"><a class="nav-link" id="feature-tab" data-bs-toggle="tab" href="#feature" role="tab">Features</a></li>
+            <li class="nav-item"><a class="nav-link" id="faq-tab" data-bs-toggle="tab" href="#faq" role="tab">FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" id="release-tab" data-bs-toggle="tab" href="#release" role="tab">Releases</a></li>
+        </ul>
+
+        <div class="tab-content p-md-4 p-3" id="myTabContent">
+
+            <!-- SCREENSHOTS -->
+            <div class="tab-pane fade show active" id="overview" role="tabpanel">
+
+                    <div class="screen-box">
+                        <h4 class="text-center mb-3" style="font-weight:700;">1) Open Tree/List in New Tab</h4>
+                        <p class="text-center text-muted mb-3">
+                            This example shows opening a tree/list view in a new tab when you <strong>Ctrl/Cmd + Click</strong> a Smart Button or the associated link. The list opens in a separate tab while the current record remains available.
+                        </p>
+                        <div class="screen-shot text-center"><img src="./assets/screenshots/screen2.gif" class="img-fluid" alt="Open tree or list in a new tab using Ctrl+Click"/></div>
+                    </div>
+
+                <div class="screen-box">
+                    <h4 class="text-center mb-3" style="font-weight:700;">2) Open Kanban Card in New Tab</h4>
+                    <p class="text-center text-muted mb-3">
+                        Ctrl/Cmd + Click a Kanban card to open the form view in a new tab — ideal for comparing multiple records or reviewing details without leaving the board.
+                    </p>
+                    <div class="screen-shot text-center"><img src="./assets/screenshots/screen4.gif" class="img-fluid" alt="Open Kanban card in new tab using Ctrl+Click"/></div>
+                </div>
+
+                <div class="screen-box">
+                    <h4 class="text-center mb-3" style="font-weight:700;">3) Open Many2one Link in New Tab</h4>
+                    <p class="text-center text-muted mb-3">
+                        Ctrl/Cmd + Click any Many2one link (Customer, Product, etc.) in readonly or form views to open the linked record in a new tab for quick reference or comparison.
+                    </p>
+                    <div class="screen-shot text-center"><img src="./assets/screenshots/screen5.gif" class="img-fluid" alt="Open Many2one link in new tab using Ctrl+Click"/></div>
+                </div>
+
+                <div class="screen-box">
+                    <h4 class="text-center mb-3" style="font-weight:700;">4) Open Related Lists from Smart Button</h4>
+                    <p class="text-center text-muted mb-3">
+                        Ctrl/Cmd + Click a Smart Button (e.g. invoice/delivery counters) to open the related records list (Tree/List) in a new tab instead of replacing the current view.
+                    </p>
+                    <div class="screen-shot text-center"><img src="./assets/screenshots/screen3.gif" class="img-fluid" alt="Open related lists from Smart Button in new tab"/></div>
+                </div>
+
+            </div>
+
+            <!-- FEATURES -->
+            <div class="tab-pane fade" id="feature" role="tabpanel">
+                <div class="row g-3">
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Ctrl/Cmd + Click shortcut:</b> Open related records or lists in a new tab without leaving the current page.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Many2one support:</b> Ctrl/Cmd + Click a Many2one field to open the referenced record in a new tab.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Kanban & List/Tree support:</b> Ctrl/Cmd + Click a Kanban card or list row to open the form in a new tab.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Smart Buttons support:</b> Open related record lists from Smart Buttons in a new tab instead of replacing the current view.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>macOS support:</b> Cmd + Click on macOS is supported automatically.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Zero configuration:</b> Works out of the box for all users after installation.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Lightweight:</b> Small client-side change with no DB schema or backend calls.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Compatible behavior:</b> Does not override native browser middle-click behavior; it supplements it where Odoo handlers block it.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Cross-browser:</b> Works on Chrome, Firefox, Edge, and Safari without extensions.</div></div>
+                    <div class="col-md-6"><div class="faq-item h-100"><b>Odoo 18 ready:</b> Designed for Odoo 18 Community & Enterprise.</div></div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="tab-pane fade" id="faq" role="tabpanel">
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">How do I open a record in a new tab?</h6>
+                    <p class="text-muted mb-0">Hold <b>Ctrl</b> (or <b>Cmd</b> on macOS) and then click the link, card, or smart button — the item opens in a new browser tab automatically.</p>
+                </div>
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">Is this different from Middle Click?</h6>
+                    <p class="text-muted mb-0">Middle Click still works by default. This module supplements browser behavior by enabling Ctrl/Cmd+Click where Odoo event handlers would otherwise block new-tab opening.</p>
+                </div>
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">Which UI elements are supported?</h6>
+                    <p class="text-muted mb-0">Smart Buttons, Kanban cards, List/Tree rows, and Many2one fields. Any internal link handled by the module will open in a new tab when using the shortcut.</p>
+                </div>
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">Does it require special permissions or settings?</h6>
+                    <p class="text-muted mb-0">No. No extra permissions or configuration are needed — it works out of the box after install.</p>
+                </div>
+                <div class="faq-item">
+                    <h6 style="font-weight:700;">Does it affect performance?</h6>
+                    <p class="text-muted mb-0">No. The change is a lightweight client-side behavior and does not add server queries.</p>
+                </div>
+                <div class="faq-item mb-0">
+                    <h6 style="font-weight:700;">Which Odoo editions are supported?</h6>
+                    <p class="text-muted mb-0">Compatible with <b>Odoo 18 Community and Enterprise</b>, and works on On-Premise, Odoo Online, and Odoo.sh without extra dependencies.</p>
+                </div>
+            </div>
+
+            <!-- RELEASES -->
+            <div class="tab-pane fade" id="release" role="tabpanel">
+                <div class="faq-item mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+                        <h6 class="mb-1" style="font-weight:700;color:var(--primary);">Version 17.0.1.0.0</h6>
+                        <span class="text-muted">Initial Release</span>
+                    </div>
+                    <ul class="text-muted mb-0">
+                        <li>Open related records and lists in a new tab using Ctrl/Cmd + Click</li>
+                        <li>Supports Smart Buttons, Kanban, List/Tree, and Many2one fields</li>
+                        <li>No configuration or DB changes required</li>
+                        <li>Client-side only — no extra server calls</li>
+                        <li>Compatible with Odoo 18 Community & Enterprise</li>
+                        <li>Works across major browsers (Chrome, Firefox, Edge, Safari)</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Our Services -->
+    <section class="panel-box p-4 mb-5">
+        <h3 class="text-center mb-4" style="font-size:34px;font-weight:800;text-transform:uppercase;">Our Services</h3>
+        <div class="row mt-3">
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center" style="background-color:#FFE2E5;margin:auto;gap:16px;border-radius:8px;">
+                        <div class="d-flex justify-content-center align-items-center" style="background-color:#FA5A7D;border-radius:50%;height:56px;width:56px"><img src="./assets/icons/gear.svg" height="28px" width="28px"></div>
+                        <span style="font-size:18px;font-weight:600;">Odoo Customization</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center" style="background-color:#FFF4DE;margin:auto;gap:16px;border-radius:8px;">
+                        <div class="d-flex justify-content-center align-items-center" style="background-color:#FF947A;border-radius:50%;height:56px;width:56px"><img src="./assets/icons/wrench-icon.svg" height="28px" width="28px"></div>
+                        <span style="font-size:18px;font-weight:600;">Odoo Implementation</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center" style="background-color:#DCFCE7;margin:auto;gap:16px;border-radius:8px;">
+                        <div class="d-flex justify-content-center align-items-center" style="background-color:#3CD856;border-radius:50%;height:56px;width:56px"><img src="./assets/icons/life-ring-icon.svg" height="28px" width="28px"></div>
+                        <span style="font-size:18px;font-weight:600;">Odoo Support</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-sm-12 mb-3">
+                <a href="https://www.nezam.co" style="text-decoration:none">
+                    <div class="btn-lg btn-block p-4 mb-2 d-flex flex-column justify-content-center align-items-center" style="background-color:#F3E8FF;margin:auto;gap:16px;border-radius:8px;">
+                        <div class="d-flex justify-content-center align-items-center" style="background-color:#BF83FF;border-radius:50%;height:56px;width:56px"><img src="./assets/icons/odoo-consultancy.svg" height="28px" width="28px"></div>
+                        <span style="font-size:18px;font-weight:600;">Odoo Consultancy</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="footer-note text-center py-3">
+        <p class="mb-1">&#169; 2024 <a href="https://www.nezam.co" style="color:var(--primary);text-decoration:none;">Nezam Solutions</a> &#8212; All rights reserved.</p>
+        <p class="mb-0">
+            <a href="mailto:support@nezam.co" style="color:var(--primary);">support@nezam.co</a> &nbsp;|&nbsp;
+            <a href="https://wa.me/+201550935225" style="color:var(--secondary);">WhatsApp: +20 1550935225</a>
+        </p>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
