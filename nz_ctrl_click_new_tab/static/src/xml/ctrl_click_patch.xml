@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        Patch: web.Many2One
+        Fix: readonly <a class="o_form_uri"> blocks browser CTRL+Click because of
+             t-on-click.prevent.stop. We pass the event to openRecord so it can
+             detect the CTRL / Cmd modifier and open the record in a new tab.
+    -->
+    <t t-name="web.Many2One" t-inherit="web.Many2One" t-inherit-mode="extension">
+        <xpath expr="//a[hasclass('o_form_uri')]" position="attributes">
+            <attribute name="t-on-click.prevent.stop">(ev) => this.openRecord(ev.ctrlKey || ev.metaKey ? 'tab' : 'action')</attribute>
+        </xpath>
+    </t>
+
+</templates>
